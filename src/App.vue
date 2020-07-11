@@ -1,27 +1,29 @@
 <template>
   <div>
-    <div
-      id="slogan"
-      class="text-center">
-      <h1>Dev4u</h1>
-      <br />
-      <h6 class="text-secondary">Aplicação para cadastro de desenvolvedores.</h6>
-    </div>
-    <div id="main">
-      <DomainList></DomainList>
-    </div>
+    <Header></Header>
+    <main role="main">
+      <!-- <Home></Home>
+      <DevListBox></DevListBox> -->
+      <router-view></router-view>
+    </main>
+    <Footer></Footer>
   </div>
 </template>
 
 <script>
 import "bootstrap/dist/css/bootstrap.css";
 import "font-awesome/css/font-awesome.css";
-import DomainList from "./components/DomainList";
+import "./assets/styles/default.css";
+
+// import DomainList from "./components/DomainList";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 export default {
 	name: "app",
 	components: {
-		DomainList
+		Header,
+		Footer
 	}
 };
 </script>

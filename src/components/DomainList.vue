@@ -1,6 +1,6 @@
 <template>
     <div>
-      <div class="container">
+      
         <div class="row">
           <div class="col-md">
             <AppItemList v-bind:items="prefixes" title="Prefixos" v-on:deleteItem="deletePrefix" v-on:addItem="addPrefix"></AppItemList>
@@ -33,13 +33,15 @@
             </ul>
           </div>
         </div>
-      </div>
+      
     </div>
 </template>
 
 <script>
 import "bootstrap/dist/css/bootstrap.css";
 import "font-awesome/css/font-awesome.css";
+import axios from "axios/dist/axios";
+
 import AppItemList from "./AppItemList";
 
 export default {
@@ -49,8 +51,8 @@ export default {
 	},
 	data: function () {
 		return {
-			prefixes: ["Air", "Jet", "Flight"],
-			sufixes: ["Hub", "Station", "Smart"]
+			prefixes: [],
+			sufixes: []
 		};
 	},
 	methods: {
@@ -82,8 +84,32 @@ export default {
 			}
 			return domains;
 		}
+	},
+	created() {
+		axios({
+			url: "http://localhost:4000/",
+			method: "post",
+			data: {
+				query: `
+							{
+								prefixes {
+									id
+									type
+									description
+								}
+								sufixes {
+									description
+								}
+							}
+						`
+			}			
+		}).then(response => {
+			const query = response.data;
+			this.prefixes = query.data.prefixes.map(prefix => prefix.description);
+			this.sufixes = query.data.sufixes.map(sufix => sufix.description);
+		});
 	}
 };
 </script>
 <style scoped>
-</style>>
+</style>
