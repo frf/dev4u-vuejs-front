@@ -7,6 +7,7 @@ import LayoutLogin from "./components/LayoutLogin";
 
 import Home from "./pages/Home";
 import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
 
 console.log(process.env);
 // console.log(process.env.production.VUE_APP_TITLE)
@@ -33,6 +34,16 @@ const router = new Router({
 				{
 					path: "",
 					component: SignIn
+				}
+			]
+		},
+		{
+			path: "/sign-up",
+			component: LayoutLogin,
+			children: [
+				{
+					path: "",
+					component: SignUp
 				}
 			]
 		}
