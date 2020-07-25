@@ -10,7 +10,9 @@
             </li>
           </ul>
           <form class="form-inline my-2 my-md-0">
-            <a class="nav-link text-dark" href="#">Sign In</a>
+            <router-link to="/sign-in">
+            <span class="nav-link text-dark" href="#">Sign In</span>
+            </router-link>
             <a class="btn btn-outline-primary" href="#">Sign up</a>
           </form>
         </div>
