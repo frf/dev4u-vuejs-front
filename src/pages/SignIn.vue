@@ -17,6 +17,18 @@
 </template>
 <script>
 
+import axios from "axios/dist/axios";
+import CONFIG_APP from "../config";
+
+const LOGIN_USER = `
+   mutation register($email: String!, $password: String!) {
+     login(email: $email, password: $password) {
+			 token
+			 token_refresh
+     }
+   }
+ `;
+
 export default {
 	name: "SignIn",
 	components: {
@@ -24,8 +36,8 @@ export default {
 	data: function () {
 		return {
 			input: {
-				email: "fabio2@fabiofarias.com.br",
-				password: "1233"
+				email: "teste@teste.com.br",
+				password: "123"
 			}
 		};
 	},
@@ -34,28 +46,28 @@ export default {
 			this.$router.push({path: "sign-up"});
 		},
 		login() {
-			// if(this.input.email != "" && this.input.password != "") {
-			// 	axios({
-			// 		url: "http://localhost:4000/graphql",
-			// 		method: "post",
-			// 		data: {
-			// 			query: `
-			//             mutation {
-			//               login(email:"fabio3@fabiofarias.com.br",password:"1233") {
-			//                 token
-			//                 token_refresh
-			//               }
-			//             }
-			//           `
-			// 		}
-			// 	}).then((result) => {
-			// 		console.log(result.data);
-			// 	});
-
-			// 	console.log(this.input);
-			// } else {
-			// 	console.log("A username and password must be present");
-			// }
+			if(this.input.email != "" && this.input.password != "") {
+				axios({
+					url: CONFIG_APP.URL_API,
+					method: "post",
+					data: {
+						query: LOGIN_USER,
+						variables: {
+							email: this.input.email,		
+							password: this.input.password,		
+						}
+					}
+				}).then((result) => {
+					let data = result.data.data;
+					console.log(data);
+					localStorage.setItem(CONFIG_APP.LOCAL_STORAGE_KEY, JSON.stringify(data.login));
+					this.$router.push({path: "/"});
+				}).catch((error) => {
+					console.log(error);
+				});
+			} else {
+				console.log("A email and password must be present");
+			}
 		}
 	},
 };

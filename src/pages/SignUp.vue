@@ -42,8 +42,8 @@ export default {
 			response: "....",
 			input: {
 				name: "Pedro",
-				email: "fabio3@fabiofarias.com.br",
-				password: "1233"
+				email: "teste@teste.com.br",
+				password: "123"
 			}
 		};
 	},
@@ -54,7 +54,7 @@ export default {
 		register() {
 			if(this.input.email != "" && this.input.password != "") {
 				axios({
-					url: "http://localhost:4000/graphql",
+					url: CONFIG_APP.URL_API,
 					method: "post",
 					data: {
 						query: ADD_USER,

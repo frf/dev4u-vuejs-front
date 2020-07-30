@@ -22,7 +22,22 @@
 </template>
 
 <script>
+import CONFIG_APP from "../config";
+
 export default {
 	name: "Header",
+	methods: {
+		logout() {
+			localStorage.setItem(CONFIG_APP.LOCAL_STORAGE_KEY, "");
+			this.$router.push({path: "/sign-in"});
+		}
+	},
+	created() {
+		if (localStorage.getItem(CONFIG_APP.LOCAL_STORAGE_KEY) !== "") {
+      console.log("HELLO")
+		} else {
+      console.log("HELLO XXXX")
+    }
+	}
 };
 </script>
